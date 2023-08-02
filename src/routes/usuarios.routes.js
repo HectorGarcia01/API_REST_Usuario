@@ -1,8 +1,11 @@
 const router = require('express').Router();
+const Usuario = require('../models/Usuario')
 
 //Obtener todos los usuarios
-router.get('/', (req, res) => {
-    res.json([]);
+router.get('/', async (req, res) => {
+    const usuarios = await Usuario.findAll()
+
+    res.json(usuarios);
 });
 
 //Obtener usuario por id
@@ -16,8 +19,10 @@ router.get('/:id', (req, res) => {
 });
 
 //Crear usuario
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
     const { nombre, email } = req.body;
+
+    const usuario = await Usuario.create({ nombre, email });
 
     if (!nombre || !email) {
         return res.status(400).json({
@@ -25,10 +30,7 @@ router.post('/', (req, res) => {
         });
     }
 
-    res.json({
-        nombre,
-        email
-    });
+    res.json(usuario);
 });
 
 module.exports = router;
