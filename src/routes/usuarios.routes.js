@@ -9,13 +9,12 @@ router.get('/', async (req, res) => {
 });
 
 //Obtener usuario por id
-router.get('/:id', (req, res) => {
+router.get('/:id', async (req, res) => {
     const { id } = req.params;
 
-    res.json({
-        id,
-        nombre: "Hector"
-    });
+    const usuario = await Usuario.findByPk(id);
+
+    res.json(usuario);
 });
 
 //Crear usuario
