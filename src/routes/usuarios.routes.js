@@ -16,8 +16,14 @@ router.get('/:id', (req, res) => {
 });
 
 //Crear usuario
-router.post('/:id', (req, res) => {
+router.post('/', (req, res) => {
     const { nombre, email } = req.body;
+
+    if (!nombre || !email) {
+        return res.status(400).json({
+            error: "uno o más campos vacíos"
+        });
+    }
 
     res.json({
         nombre,
