@@ -9,6 +9,7 @@ const port = process.env.PORT || 3000;
 (async () => {
     try {
         await db.authenticate();
+        await db.sync(); //Sincroniza las tablas de la db con los modelos
 
         console.log("Conexión a la db exitosamente");
     } catch (error) {
