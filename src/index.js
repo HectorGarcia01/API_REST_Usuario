@@ -1,8 +1,20 @@
 const express = require('express');
 const cors = require('cors');
 const usuarioRoutes = require('./routes/usuarios.routes');
+const db = require('./db/database');
 const app = express();
 const port = process.env.PORT || 3000;
+
+//Conexión a la db
+(async () => {
+    try {
+        await db.authenticate();
+
+        console.log("Conexión a la db exitosamente");
+    } catch (error) {
+        throw new Error(error);
+    }
+})()
 
 //Middleware
 app.use(express.json()); //Recibir información
